@@ -13,7 +13,7 @@ const sequelize = new Sequelize('testtest', 'testtest', 'testtest', {
 
 sequelize.authenticate()
     .then(() => {
-        console.log('Connection has been successfully.');
+        console.log('Mysql Connection has been successfully.');
 
     }).catch(err => {
         console.error('Unable to connect to the database:', err)

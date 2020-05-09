@@ -2,14 +2,13 @@ const jwt = require("jsonwebtoken");
 
 const SECRET = "ZyHN09ngd2OoFULf"
 
-let createToken = (id, expires = 1, strTimer = 'hours') => {
+let createToken = (id, expires = '1h') => {
     const token = jwt.sign({
-        id,
-        expires: expires,
-        strTimer: strTimer
+        id: id
     }, SECRET, {
-        expiresIn: expires + " " + strTimer
+        expiresIn: '1h'
     });
+    console.log(token);
     return token
 }
 
