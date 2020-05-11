@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const JWT = require('jsonwebtoken');
+const sequelize = require('../db/config')
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op;
 
@@ -54,31 +55,18 @@ router.post('/list', async (req, res, next) => {
         }
       })
     } else {
-      //验证成功
-      //获取前端需要的相应数据
-      //返回给前端相应的信息
-      // console.log(req.body.params.query);
-      // const test = await User.findAll({
-      //   where: {
-      //     [Op.like]: 'aaaa'
-      //   }
-      // }).then(res => {
-      //   console.log(res, 'res');
-
-      // })
-      //   .catch(err => {
-      //     console.log(err, 'err');
-      //   })
-      // console.log(test);
-
-
+      let query = req.body.params.query
       const usersList = await User.findAndCountAll({
+        where: {
+          username: {
+            [Op.like]: `%${query}%`
+          }
+        },
         limit: req.body.params.pagesize,
         offset: req.body.params.pagenum,
       }).catch(err => {
         console.log(err, 'err');
       })
-
       res.send({
         'data': {
           'users': usersList
@@ -88,6 +76,8 @@ router.post('/list', async (req, res, next) => {
           'status': 200
         }
       })
+      console.log('usersList...', usersList);
+
     }
   })
 })
