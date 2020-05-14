@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize')
+const Core = require('@alicloud/pop-core');
 
 const sequelize = new Sequelize('testtest', 'testtest', 'testtest', {
     pool: {
@@ -11,12 +12,6 @@ const sequelize = new Sequelize('testtest', 'testtest', 'testtest', {
     dialect: 'mysql',
 });
 
-sequelize.authenticate()
-    .then(() => {
-        console.log('Mysql Connection has been successfully.');
 
-    }).catch(err => {
-        console.error('Unable to connect to the database:', err)
-    })
 
 module.exports = sequelize

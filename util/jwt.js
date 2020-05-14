@@ -20,5 +20,4 @@ let checkToken = (token) => {
 
 module.exports = {
     createToken, checkToken, SECRET
-
 }

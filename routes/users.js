@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 
 const JWT = require('jsonwebtoken');
-const sequelize = require('../db/config')
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op;
 
@@ -76,8 +75,6 @@ router.post('/list', async (req, res, next) => {
           'status': 200
         }
       })
-      console.log('usersList...', usersList);
-
     }
   })
 })
@@ -178,26 +175,50 @@ router.get('/menus', function (req, res, next) {
         data: [
           {
             authName: '用户管理',
-            id: 125,
+            id: 1,
             path: 'users',
             children: [
               {
                 authName: '用户列表',
                 children: '',
-                id: 110,
+                id: 1 - 1,
                 path: 'users'
               }
             ]
           },
           {
+            authName: '阿里云',
+            id: 2,
+            path: 'aliyun',
+            children: [
+              {
+                authName: '域名',
+                children: '',
+                id: 2 - 1,
+                path: '/domain'
+              }
+            ]
+          },
+          {
             authName: '权限管理',
-            id: 103,
+            id: 3,
             path: 'rights',
             children: [{
               authName: '角色列表',
               children: '',
-              id: 111,
+              id: 3 - 1,
               path: 'roles'
+            }]
+          },
+          {
+            authName: '测试页面',
+            id: 4,
+            path: 'test',
+            children: [{
+              authName: 'test',
+              children: 'test',
+              id: 4 - 1,
+              path: 'test'
             }]
           }
         ],
