@@ -83,7 +83,6 @@ router.post('/list', async (req, res, next) => {
 router.post('/add', async (req, res) => {
   const token = req.headers.authorization
   const userDate = req.body
-  console.log(userDate);
   JWT.verify(token, SECRET, async (err, decoded) => {
     if (err) {
       res.status(403).send({
@@ -124,13 +123,11 @@ router.delete('/delete/:id', async (req, res) => {
         }
       })
     } else {
-      console.log(req.params.id);
       const usersInfo = await User.destroy({
         where: {
           id: req.params.id
         }
       })
-      console.log(usersInfo, 'usersInfo');
       if (usersInfo == 0) {
         res.send({
           'meta': {
@@ -150,6 +147,45 @@ router.delete('/delete/:id', async (req, res) => {
   })
 })
 
+
+//修改用户
+router.put('/edit/:id', async (req, res) => {
+  const token = req.headers.authorization
+  JWT.verify(token, SECRET, async (err, decoded) => {
+    if (err) {
+      res.status(403).send({
+        'meta': {
+          'msg': '验证失败',
+          'status': 403
+        }
+      })
+    } else {
+      const usersInfo = await User.update({
+        email: req.body.email,
+        password: req.body.password
+      }, {
+        where: {
+          id: req.params.id
+        }
+      })
+      if (usersInfo == 0) {
+        res.send({
+          'meta': {
+            'msg': '修改失败',
+            'status': 400
+          }
+        })
+      } else {
+        res.send({
+          'meta': {
+            'msg': '修改成功!',
+            'status': 201
+          }
+        })
+      }
+    }
+  })
+})
 
 // 获取个人详情
 router.post('/profile', async (req, res) => {
