@@ -27,7 +27,10 @@ router.post('/login', async (req, res) => {
 
   if (!user) {
     res.send({
-      msg: '账户密码错误'
+      meta: {
+        status: 401,
+        msg: '账户密码错误',
+      }
     })
   }
   res.send({
@@ -229,9 +232,15 @@ router.get('/menus', function (req, res, next) {
             children: [
               {
                 authName: '域名',
-                children: '',
+                children: 'dns',
                 id: 2 - 1,
                 path: '/domain'
+              },
+              {
+                authName: 'DNS解析',
+                children: '',
+                id: 2 - 2,
+                path: '/dns'
               }
             ]
           },
