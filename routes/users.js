@@ -6,7 +6,7 @@ const Sequelize = require('sequelize')
 const Op = Sequelize.Op;
 
 const User = require('../db/UserModel')
-const { createToken, checkToken, SECRET } = require('../util/JWT')
+const { createToken, checkToken, SECRET } = require('../util/jwt')
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
